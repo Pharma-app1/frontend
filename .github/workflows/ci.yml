@@ -76,7 +76,7 @@ jobs:
             name: build-artifacts
             path: build/
 
-    docker-build-push:
+  docker-build-push:
         name: Docker Build and Push
         runs-on: ubuntu-latest
         needs: build
