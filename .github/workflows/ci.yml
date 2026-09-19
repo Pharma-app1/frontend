@@ -97,7 +97,7 @@ jobs:
               password: ${{ secrets.DOCKER_PASSWORD }}
           
           - name: Build docker image
-            run: docker build -t ${{ env.DOCKER_USERNAME }}/pharma-ui:${{ steps.set-image-tag.outputs.image-tag }} .
+            run: docker build -t ${{ env.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }} .
 
           - name: Push docker image
             run: docker push ${{ env.DOCKER_USERNAME }}/pharma-ui:${{ steps.set-image-tag.outputs.image-tag }}
