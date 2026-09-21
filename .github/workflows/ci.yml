@@ -108,8 +108,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-      - uses: actions/checkout@v5
-
       - name: Checkout GitOps repo
         uses: actions/checkout@v5
         with:
