@@ -122,9 +122,9 @@ jobs:
 
       - name: Update image tag — DEV
         env:
-          IMAGE_TAG: ${{ needs.docker-build-push.outputs.image_tag }}
+          IMAGE_TAG: ${{ needs.docker-build-push.outputs.image-tag }}
         run: |
-          ls
+          ls -R gitops
           yq e ".image.tag = \"${IMAGE_TAG}\"" -i \
             "gitops/frontend/values.yaml"
           cd gitops
