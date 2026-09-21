@@ -111,7 +111,8 @@ jobs:
       - name: Checkout GitOps repo
         uses: actions/checkout@v5
         with:
-          repository: ${{ env.GITOPS_REPO }}
+          repository: "https://github.com/Pharma-app1/gitops.git"
+          
           path: gitops
 
       - name: Install yq
