@@ -101,4 +101,37 @@ jobs:
 
           - name: Push docker image
             run: docker push ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }}
-          
+  
+  deploy-dev:
+    name: Deploy — DEV
+    needs: docker-build-push
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Checkout GitOps repo
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ env.GITOPS_REPO }}
+          path: _gitops
+
+      - name: Install yq
+        run: |
+          wget -qO /usr/local/bin/yq \
+            https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          chmod +x /usr/local/bin/yq
+
+      - name: Update image tag — DEV
+        env:
+          IMAGE_TAG: ${{ needs.docker-build-push.outputs.image_tag }}
+        run: |
+          yq e ".image.tag = \"${IMAGE_TAG}\"" -i \
+            "frontend/values.yaml"
+          cd _gitops
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet && echo "Already up to date" && exit 0
+          git commit -m "ci(dev): update pharma-ui → ${IMAGE_TAG}"
+          git push 
