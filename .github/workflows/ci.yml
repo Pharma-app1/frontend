@@ -125,13 +125,14 @@ jobs:
       - name: Update image tag — DEV
         env:
           IMAGE_TAG: ${{ needs.docker-build-push.outputs.image_tag }}
-        run: |
-          yq e ".image.tag = \"${IMAGE_TAG}\"" -i \
-            "gitops/frontend/values.yaml"
+        run: ls
+       # run: |
+       #   yq e ".image.tag = \"${IMAGE_TAG}\"" -i \
+        #    "gitops/frontend/values.yaml"
           
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git diff --staged --quiet && echo "Already up to date" && exit 0
-          git commit -m "ci(dev): update pharma-ui → ${IMAGE_TAG}"
-          git push 
+         # git config user.name  "github-actions[bot]"
+         # git config user.email "github-actions[bot]@users.noreply.github.com"
+         # git add .
+         # git diff --staged --quiet && echo "Already up to date" && exit 0
+        #  git commit -m "ci(dev): update pharma-ui → ${IMAGE_TAG}"
+         # git push 
