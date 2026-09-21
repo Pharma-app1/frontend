@@ -127,8 +127,8 @@ jobs:
           IMAGE_TAG: ${{ needs.docker-build-push.outputs.image_tag }}
         run: |
           yq e ".image.tag = \"${IMAGE_TAG}\"" -i \
-            "frontend/values.yaml"
-          cd _gitops
+            "gitops/frontend/values.yaml"
+          
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
