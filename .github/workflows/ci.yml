@@ -99,8 +99,8 @@ jobs:
           - name: Build docker image
             run: docker build -t ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }} .
 
-          - name: Push docker image
-            run: docker push ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }}
+          #- name: Push docker image
+           # run: docker push ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }}
   
   deploy-dev:
     name: Deploy — DEV
@@ -126,7 +126,7 @@ jobs:
         run: |
           ls
           yq e ".image.tag = \"${IMAGE_TAG}\"" -i \
-            "_gitops/frontend/values.yaml"
+            "gitops/frontend/values.yaml"
           cd gitops
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
