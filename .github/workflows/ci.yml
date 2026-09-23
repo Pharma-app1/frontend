@@ -99,8 +99,8 @@ jobs:
           - name: Build docker image
             run: docker build -t ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }} .
 
-          #- name: Push docker image
-           # run: docker push ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }}
+          - name: Push docker image
+            run: docker push ${{ vars.DOCKER_USERNAME }}/pharnaapp:${{ steps.set-image-tag.outputs.image-tag }}
   
   deploy-dev:
     name: Deploy — DEV
